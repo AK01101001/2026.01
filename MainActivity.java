@@ -2,6 +2,7 @@
 package dev.end.kosci;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -35,14 +36,55 @@ public class MainActivity extends AppCompatActivity {
                 kosci[i] = new Kosc(0);
 
         }
-        images[0] = findViewById(R.id.img1);
+        images[0] = binding.img1;
+        images[1] = binding.img2;
+        images[2] = binding.img3;
+        images[3] = binding.img4;
+        images[4] = binding.img5;
 
         binding.rzut.setOnClickListener(v -> {
+            int suma = 0;
             for (int i = 0; i < 5; i++) {
                 if (kosci[i].dostepna) {
-                    kosci[i].rzutKością();
+                    suma += Rzut(i);
+                }
+                else
+                {
+                    suma +=kosci[i].wartosc;
                 }
             }
+            binding.suma.setText(String.valueOf(suma));
         });
+        for (int i = 0; i < images.length; i++) {
+            int I = i;
+            images[i].setOnClickListener(v -> {
+                images[I].setImageAlpha(kosci[I].zmienDostepnosc() ? 255 : 120);
+            });
+        }
+    }
+
+    private int Rzut(int i) {
+        kosci[i].rzutKością();
+        int res =0;
+        switch (kosci[i].wartosc)
+        {
+            case 0:
+                res = R.drawable.kosc0;
+                break;case 1:
+                res = R.drawable.kosc1;
+                break;case 2:
+                res = R.drawable.kosc2;
+                break;case 3:
+                res = R.drawable.kosc3;
+                break;case 4:
+                res = R.drawable.kosc4;
+                break; case 5:
+                res = R.drawable.kosc5;
+                break;case 6:
+                res = R.drawable.kosc6;
+                break;
+        }
+        images[i].setImageResource(res);
+        return kosci[i].wartosc;
     }
 }

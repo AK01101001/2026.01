@@ -1,3 +1,5 @@
+package dev.end.kosci;
+
 import java.util.Random;
 
 public class Kosc {
@@ -9,7 +11,7 @@ public class Kosc {
 
     public Kosc() {
         Random random = new Random();
-        int wartosc = random.nextInt(1,7);
+        int wartosc = new Random().nextInt(6)+1;
         this.wartosc = wartosc;
         IDObraz = wartosc;
         dostepna=true;
@@ -31,13 +33,13 @@ public class Kosc {
         if (dostepna)
         {
             Random random = new Random();
-            wartosc = random.nextInt(1,7);
+            wartosc = new Random().nextInt(6)+1;
 
         }
     }
-    void zablokuj()
+    boolean zmienDostepnosc()
     {
-        dostepna=false;
+        dostepna=!dostepna; return dostepna;
     }
 
     @Override
